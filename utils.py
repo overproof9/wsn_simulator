@@ -27,10 +27,11 @@ def make_plot_from_csv(file):
 
 
 def get_beacon(anchor, node):
-    # process negative beacon values
+    # angle between vector and axis X
     vector = Vector(anchor, node)
     cos = vector.x / vector.len
     phi = math.degrees(math.acos(cos))
+    # process negative beacon values
     if vector.start.y < vector.end.y:
         return phi 
     else:
@@ -38,6 +39,7 @@ def get_beacon(anchor, node):
 
 
 def get_angles_from_nodes(anchor_a, anchor_b, node):
+    # simulation
     beacon_a = get_beacon(anchor_a, node) + random.randint(0, ANCHOR_STANDART_DEVIATION)        # noise
     beacon_b = get_beacon(anchor_b, node) + random.randint(0, ANCHOR_STANDART_DEVIATION)        # noise
     angle1 = get_beacon(anchor_a, node) - get_beacon(anchor_a, anchor_b)
@@ -47,6 +49,7 @@ def get_angles_from_nodes(anchor_a, anchor_b, node):
     return (abs(angle1), abs(angle2), beacon_a, beacon_b)
 
 def get_angles_from_beacons(anchor_a, anchor_b, beacon_a, beacon_b):
+    # localization
     angle_a = beacon_a - get_beacon(anchor_a, anchor_b)
     angle_b = beacon_b - get_beacon(anchor_b, anchor_a)
     return (abs(angle_a), abs(angle_b))
