@@ -7,7 +7,7 @@ from itertools import combinations
 
 from anchor import AnchorNode
 from node import Node
-from globals import (CURRENT_YEAR, NODES_COUNT, ANCHORS_COUNT, ANCHOR_STANDART_DEVIATION,
+from globals import (CURRENT_YEAR, NODES_COUNT, ANCHORS_COUNT,
                     SIMULATED_DATA_FILE_NAME, SIMULATED_DATA_COLUMNS)
 from utils import make_plot_from_csv
 

@@ -1,10 +1,7 @@
-AOA_MAX = 180                   # Degrees
-AOA_MIN = -179                     # Degrees
 AXIS_Y_LIMIT = (0, 100)
 AXIS_X_LIMIT = (0, 100)
 
 ANCHORS_COUNT = 3
-ANCHOR_ANGLE_NOISE = 0.5        # Degrees
 ANCHOR_STANDART_DEVIATION = 5   # Degrees
 
 NODES_COUNT = 10

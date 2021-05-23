@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from functools import reduce
 
 from anchor import AnchorNode
-from globals import NODES_COUNT, SIMULATED_DATA_FILE_NAME, ANCHORS_COUNT
-from node import Node, get_angles_from_beacons
+from globals import SIMULATED_DATA_FILE_NAME
+from utils import get_angles_from_beacons
 
 
 def get_distance(anchor_a, anchor_b):
