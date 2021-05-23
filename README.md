@@ -2,7 +2,7 @@
 Wireless sensor network localization 
 
 *dependencies
+pip install -r requirements.txt
 
-
-1. preparation.py
-2. triangulation.py
+1. python3 preparation.py
+2. python3 triangulation.py
