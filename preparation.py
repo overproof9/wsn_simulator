@@ -29,7 +29,7 @@ if __name__ == '__main__':
         np.savetxt(file, (SIMULATED_DATA_COLUMNS,), fmt='%15s', delimiter='\t')     # write header
         for ancor_a, ancor_b in combinations(anchors, 2):                           # all possible combinations of 2 anchors
             for node in nodes:                                                      
-                row_data = node.get_simulated_data(ancor_a, ancor_b)         # collect node data (coords, anchors, angles, beacons)
+                row_data = node.get_simulated_data(ancor_a, ancor_b)                # collect node data (coords, anchors, angles, beacons)
                 np.savetxt(file, [row_data,], fmt='%15.8f',  delimiter='\t')      
     
     print(f'\n\n[+]WRITE {NODES_COUNT * ANCHORS_COUNT} ROWS TO {SIMULATED_DATA_FILE_NAME}\n')

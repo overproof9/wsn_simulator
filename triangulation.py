@@ -9,51 +9,6 @@ from globals import NODES_COUNT, SIMULATED_DATA_FILE_NAME, ANCHORS_COUNT
 from node import Node, get_angles_from_beacons
 
 
-# def load_anchors(file):
-#     anchors = []
-#     data = np.loadtxt(file, delimiter='\t', skiprows=1)
-#     anchors_coords = data[:, 2:5][::NODES_COUNT]
-#     current_anchor_idx = 0
-#     while current_anchor_idx < ANCHORS_COUNT:
-#         start_idx = current_anchor_idx * NODES_COUNT
-#         stop_idx = start_idx + NODES_COUNT
-#         anchor_angles = data[start_idx:stop_idx, 4:5]
-#         x = anchors_coords[current_anchor_idx][0]
-#         y = anchors_coords[current_anchor_idx][1]
-#         anchors.append(AnchorNode.make_with_angles(x, y, anchor_angles))
-        
-#         current_anchor_idx += 1
-#     return anchors
-
-
-# def found_nodes(anchors):
-#     removed_anchor = anchors.pop()
-#     row_nodes = []
-#     while anchors:
-#         for current_anchor in anchors:
-#             nodes = []
-#             distance = Node._distance(removed_anchor, current_anchor)
-#             for phi_a, phi_b in zip(removed_anchor.angles, current_anchor.angles):
-#                 nodes.append(Node.found_node(distance, phi_a, phi_b))
-#             row_nodes.append(nodes)
-#         removed_anchor = anchors.pop()
-#     return row_nodes
-
-
-# def get_nodes_average_coords(row_nodes):
-#     nodes = []
-#     for current_idx in range(len(row_nodes[0])):
-#         curr_nodes = [row_nodes[i][current_idx] for i in range(len(row_nodes))]
-#         nodes.append(get_average(curr_nodes))
-#     return nodes
-
-
-# def get_average(nodes):
-#     x = sum([node.x for node in nodes]) / len(nodes)
-#     y = sum([node.y for node in nodes]) / len(nodes)
-#     return Node(x, y)
-
-
 def get_distance(anchor_a, anchor_b):
     delta_x = anchor_b.x - anchor_a.x
     delta_y = anchor_b.y - anchor_a.y
@@ -80,7 +35,6 @@ def found_node(anchor_a, anchor_b, beacon_a, beacon_b):
 def find_all_nodes(file):
     nodes = []
     data = np.loadtxt(file, delimiter='\t', skiprows=1)
-    # filtered_data = data[:, 2:8]        # get anchors and related angles to found node
 
     for row in data:
         anchor_a = AnchorNode(row[2], row[3])

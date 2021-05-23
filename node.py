@@ -27,19 +27,13 @@ class Node:
         angles = get_angles_from_nodes(anchor_a, anchor_b, self)
         return (self.x, self.y, anchor_a.x, anchor_a.y, anchor_b.x, anchor_b.y, *angles)
 
-    # def get_angle(self, node):
-    #     delta_x = self.x - node.x
-    #     delta_y = self.y - node.y
-    #     angle = math.atan(delta_y / delta_x)
-    #     return math.degrees(angle)
-
     def __repr__(self):
         return f'X: {self.x}\tY: {self.y}'
 
 
 
 def get_beacon(anchor, node):
-    # if end is lower than start -> beacon = 360 - phi, else phi   
+    # process negative beacon values
     vector = Vector(anchor, node)
     cos = vector.x / vector.len
     phi = math.degrees(math.acos(cos))

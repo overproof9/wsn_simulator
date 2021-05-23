@@ -1,3 +1,6 @@
+### Test code samples
+
+
 import math
 
 class Point:
@@ -31,16 +34,6 @@ def get_beacon(anchor, node):
     else:
         return 360 - phi
 
-def get_beacon_neg(anchor, node):
-# if end is lower than start -> beacon = -phi, else phi   
-    vector = Vector(anchor, node)
-    cos = vector.x / vector.len
-    phi = math.degrees(math.acos(cos))
-    if vector.start.y > vector.end.y:
-        return -phi 
-    else:
-        return phi
-
 def get_angles(anchor1, anchor2, node):
     angle1 = get_beacon(anchor1, node) - get_beacon(anchor1, anchor2)
     angle2 = get_beacon(anchor2, node) - get_beacon(anchor2, anchor1)
@@ -62,5 +55,3 @@ if __name__ == '__main__':
     b2 = get_beacon(anchor2, node1)
 
     print(get_angles_b(anchor1, anchor2, b1, b2))
-
-    # print(get_angles_b(anchor1, anchor2, node1))
