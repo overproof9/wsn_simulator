@@ -27,12 +27,20 @@ if __name__ == '__main__':
 
     with open(SIMULATED_DATA_FILE_NAME, 'w', newline='') as file:
         np.savetxt(file, (SIMULATED_DATA_COLUMNS,), fmt='%15s', delimiter='\t')     # write header
-        for ancor_a, ancor_b in combinations(anchors, 2):                           # all possible combinations of 2 anchors
-            for node in nodes:                                                      
-                row_data = node.get_simulated_data(ancor_a, ancor_b)                # collect node data (coords, anchors, angles, beacons)
+        # for anchor_a, anchor_b in combinations(anchors, 2):                           # all possible combinations of 2 anchors
+        while anchors:
+            anchor_a = anchors.pop()
+            anchor_b = anchors.pop()
+            for node in nodes:
+
+                row_data = node.get_simulated_data(anchor_a, anchor_b)                # collect node data (coords, anchors, angles, beacons)
                 np.savetxt(file, [row_data,], fmt='%15.8f',  delimiter='\t')      
     
-    print(f'\n\n[+]WRITE {NODES_COUNT * ANCHORS_COUNT} ROWS TO {SIMULATED_DATA_FILE_NAME}\n')
+    # print(f'\n\n[+]WRITE {NODES_COUNT * ANCHORS_COUNT} ROWS TO {SIMULATED_DATA_FILE_NAME}\n')
+    with open(SIMULATED_DATA_FILE_NAME, 'r') as file:
+        data = np.loadtxt(file, delimiter='\t', skiprows=1)
+        print(f'\n\n[+]WRITE {len(data)} ROWS TO {SIMULATED_DATA_FILE_NAME}\n')
+
 
     make_plot_from_csv(SIMULATED_DATA_FILE_NAME)                                    # make plot
         

@@ -27,8 +27,8 @@ def found_node(anchor_a, anchor_b, beacon_a, beacon_b):
     delta_x = r * math.cos(phi_b)
     delta_y = r * math.sin(phi_b)
 
-    x = anchor_b.x + delta_x
-    y = anchor_b.y + delta_y
+    x = (anchor_b.x + delta_x) % 100
+    y = (anchor_b.y + delta_y) % 100
     return(round(x, 2), round(y, 2))
     
 
@@ -39,8 +39,8 @@ def find_all_nodes(file):
     for row in data:
         anchor_a = AnchorNode(row[2], row[3])
         anchor_b = AnchorNode(row[4], row[5])
-        beacon_a = row[8]
-        beacon_b = row[9]
+        beacon_a = row[10]
+        beacon_b = row[11]
         calculated = found_node(anchor_a, anchor_b, beacon_a, beacon_b)
 
         nodes.append((*calculated, row[0], row[1]))
