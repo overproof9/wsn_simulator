@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from functools import reduce
 
 from anchor import AnchorNode
-from globals import SIMULATED_DATA_FILE_NAME
+from globals import TRIANGULATION_SIMULATED_DATA, AXIS_X_LIMIT, AXIS_Y_LIMIT
 from utils import get_angles_from_beacons
 
 
@@ -27,8 +27,11 @@ def found_node(anchor_a, anchor_b, beacon_a, beacon_b):
     delta_x = r * math.cos(phi_b)
     delta_y = r * math.sin(phi_b)
 
-    x = (anchor_b.x + delta_x) % 100
-    y = (anchor_b.y + delta_y) % 100
+    x = min(anchor_b.x + delta_x, AXIS_X_LIMIT[1])
+    y = min(anchor_b.y + delta_y, AXIS_Y_LIMIT[1])
+
+    if x < 0 or y < 0:
+        return (0, 0)                       # if coords < 0 smth went wrong put to 0,0
     return(round(x, 2), round(y, 2))
     
 
@@ -39,13 +42,18 @@ def find_all_nodes(file):
     for row in data:
         anchor_a = AnchorNode(row[2], row[3])
         anchor_b = AnchorNode(row[4], row[5])
-        beacon_a = row[10]
-        beacon_b = row[11]
-        calculated = found_node(anchor_a, anchor_b, beacon_a, beacon_b)
+        beacon_a = row[8]
+        beacon_b = row[9]
+        beacon_noise_a = row[10]
+        beacon_noise_b = row[11]
+        real_calculated = found_node(anchor_a, anchor_b, beacon_a, beacon_b)
+        noise_calculated = found_node(anchor_a, anchor_b, beacon_noise_a, beacon_noise_b)
 
-        nodes.append((*calculated, row[0], row[1]))
+        nodes.append((row[0], row[1], *real_calculated, *noise_calculated))
 
     return nodes
+
+
 
 
 
@@ -54,11 +62,14 @@ if __name__ == '__main__':
     Localize nodes using only angles and anchors coords
     Use all combinations of anchors pairs ang get average coords to better precise
     """
-    nodes = find_all_nodes(SIMULATED_DATA_FILE_NAME)
+    nodes = find_all_nodes(TRIANGULATION_SIMULATED_DATA)
 
     for node in nodes:
-        plt.plot(node[0], node[1], 'r x')       # triangulation
-        plt.plot(node[2], node[3], 'b o')       # real data
+        plt.plot(node[0], node[1], 'b o')       # real data
+        plt.plot(node[2], node[3], 'r x')       # triangulation exact beacons ensure calculations are correct
+        plt.plot(node[4], node[5], 'g x')       # triangulation noise beacons
+        if (node[4] > 0 and node[5] > 0):                   
+            plt.plot([node[4], node[0]], [node[5], node[1]])    # drow relation lines only when node is correct
 
     plt.show()
 

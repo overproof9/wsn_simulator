@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
-from globals import SIMULATED_DATA_FILE_NAME as file
+from globals import TRIANGULATION_SIMULATED_DATA as file
 
 
 if __name__ == '__main__':

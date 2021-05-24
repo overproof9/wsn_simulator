@@ -3,15 +3,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from globals import SIMULATED_DATA_FILE_NAME, NODES_COUNT, ANCHOR_STANDART_DEVIATION
+from globals import TRIANGULATION_SIMULATED_DATA, NODES_COUNT, ANCHOR_STANDART_DEVIATION
 from vector import Vector
 
 
 def make_plot_from_csv(file):
     data = np.loadtxt(file, delimiter='\t', skiprows=1)
     nodes_coords = data[:, 0:2]
-    anchors_a_coords = data[:, 2:4][::NODES_COUNT]
-    anchors_b_coords = data[:, 4:6][::NODES_COUNT]
+    anchors_a_coords = data[:, 2:4]#[::NODES_COUNT]
+    anchors_b_coords = data[:, 4:6]#[::NODES_COUNT]
     anchors_coords = [*anchors_a_coords, *anchors_b_coords]
 
     plt.clf()
@@ -56,5 +56,5 @@ def get_angles_from_beacons(anchor_a, anchor_b, beacon_a, beacon_b):
 
 
 if __name__ == '__main__':
-    with open(SIMULATED_DATA_FILE_NAME) as file:
+    with open(TRIANGULATION_SIMULATED_DATA) as file:
         make_plot_from_csv(file)
