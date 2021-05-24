@@ -1,9 +1,8 @@
-import math
 import random
-
 
 from globals import AXIS_X_LIMIT, AXIS_Y_LIMIT
 from utils import get_angles_from_nodes
+
 
 class Node:
     def __init__(self, x, y):

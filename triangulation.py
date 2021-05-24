@@ -2,8 +2,6 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-from functools import reduce
-
 from anchor import AnchorNode
 from globals import TRIANGULATION_SIMULATED_DATA, AXIS_X_LIMIT, AXIS_Y_LIMIT
 from utils import get_angles_from_beacons
@@ -54,14 +52,14 @@ def find_all_nodes(file):
     return nodes
 
 
-
-
-
 if __name__ == '__main__':
     """
     Localize nodes using only angles and anchors coords
     Use all combinations of anchors pairs ang get average coords to better precise
     """
+
+
+
     nodes = find_all_nodes(TRIANGULATION_SIMULATED_DATA)
 
     for node in nodes:
@@ -70,6 +68,5 @@ if __name__ == '__main__':
         plt.plot(node[4], node[5], 'g x')       # triangulation noise beacons
         if (node[4] > 0 and node[5] > 0):                   
             plt.plot([node[4], node[0]], [node[5], node[1]])    # drow relation lines only when node is correct
-
+    
     plt.show()
-

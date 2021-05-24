@@ -1,5 +1,4 @@
 import csv
-# from proj.pg import Vector
 import numpy as np
 import random
 
@@ -26,21 +25,15 @@ if __name__ == '__main__':
 
 
     with open(TRIANGULATION_SIMULATED_DATA, 'w', newline='') as file:
-        np.savetxt(file, (SIMULATED_DATA_COLUMNS,), fmt='%15s', delimiter='\t')     # write header
-        # while anchors:
-        #     anchor_a = anchors.pop()
-        #     anchor_b = anchors.pop()
+        np.savetxt(file, (SIMULATED_DATA_COLUMNS,), fmt='%15s', delimiter='\t')             # write header
         for node in nodes:
-            for anchor_a, anchor_b in combinations(anchors, 2):                           # all possible combinations of 2 anchors
-                row_data = node.get_simulated_data(anchor_a, anchor_b)                # collect node data (coords, anchors, angles, beacons)
+            for anchor_a, anchor_b in combinations(anchors, 2):                             # all possible combinations of 2 anchors
+                row_data = node.get_simulated_data(anchor_a, anchor_b)                      # collect node data (coords, anchors, angles, beacons)
                 np.savetxt(file, [row_data,], fmt='%15.8f',  delimiter='\t')      
     
-    # print(f'\n\n[+]WRITE {NODES_COUNT * ANCHORS_COUNT} ROWS TO {TRIANGULATION_SIMULATED_DATA}\n')
     with open(TRIANGULATION_SIMULATED_DATA, 'r') as file:
         data = np.loadtxt(file, delimiter='\t', skiprows=1)
         print(f'\n\n[+]WRITE {len(data)} ROWS TO {TRIANGULATION_SIMULATED_DATA}\n')
 
 
-    make_plot_from_csv(TRIANGULATION_SIMULATED_DATA)                                    # make plot
-        
-
+    make_plot_from_csv(TRIANGULATION_SIMULATED_DATA)                                        # make plot

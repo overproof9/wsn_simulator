@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from globals import TRIANGULATION_SIMULATED_DATA, NODES_COUNT, ANCHOR_STANDART_DEVIATION
+from globals import TRIANGULATION_SIMULATED_DATA, ANCHOR_STANDART_DEVIATION
 from vector import Vector
 
 
@@ -54,7 +54,7 @@ def get_angles_from_beacons(anchor_a, anchor_b, beacon_a, beacon_b):
     angle_b = beacon_b - get_beacon(anchor_b, anchor_a)
     return (abs(angle_a), abs(angle_b))
 
-
+ 
 if __name__ == '__main__':
     with open(TRIANGULATION_SIMULATED_DATA) as file:
         make_plot_from_csv(file)

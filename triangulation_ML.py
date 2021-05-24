@@ -81,9 +81,3 @@ if __name__ == '__main__':
     for x, y in zip(labels_x[-10:], labels_y[-10:]):
         plt.plot(x, y, 'b o')
     plt.show()
-
-
-
-
-
-
