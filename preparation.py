@@ -7,7 +7,7 @@ from itertools import combinations
 from anchor import AnchorNode
 from node import Node
 from globals import (CURRENT_YEAR, NODES_COUNT, ANCHORS_COUNT,
-                    TRIANGULATION_SIMULATED_DATA, SIMULATED_DATA_COLUMNS)
+                    TRIANGULATION_SIMULATED_DATA, SIMULATED_AOA_DATA_COLUMNS)
 from utils import make_plot_from_csv
 
 
@@ -25,11 +25,11 @@ if __name__ == '__main__':
 
 
     with open(TRIANGULATION_SIMULATED_DATA, 'w', newline='') as file:
-        np.savetxt(file, (SIMULATED_DATA_COLUMNS,), fmt='%15s', delimiter='\t')             # write header
+        np.savetxt(file, (SIMULATED_AOA_DATA_COLUMNS,), fmt='%15s', delimiter='\t')             # write header
         for node in nodes:
             for anchor_a, anchor_b in combinations(anchors, 2):                             # all possible combinations of 2 anchors
-                row_data = node.get_simulated_data(anchor_a, anchor_b)                      # collect node data (coords, anchors, angles, beacons)
-                np.savetxt(file, [row_data,], fmt='%15.8f',  delimiter='\t')      
+                row_data = node.sim_aoa(anchor_a, anchor_b)                      # collect node data (coords, anchors, angles, beacons)
+                np.savetxt(file, [row_data,], fmt='%15.8f',  delimiter='\t')
     
     with open(TRIANGULATION_SIMULATED_DATA, 'r') as file:
         data = np.loadtxt(file, delimiter='\t', skiprows=1)

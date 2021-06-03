@@ -19,7 +19,7 @@ class Node:
         return self.x == o.x and self.y == o.y
 
     
-    def get_simulated_data(self, anchor_a, anchor_b):
+    def sim_aoa(self, anchor_a, anchor_b):
         angles = get_angles_from_nodes(anchor_a, anchor_b, self)
         return (self.x, self.y, anchor_a.x, anchor_a.y, anchor_b.x, anchor_b.y, *angles)
 

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from globals import TRIANGULATION_SIMULATED_DATA, ANCHOR_STANDART_DEVIATION
+from globals import TRIANGULATION_SIMULATED_DATA, AOA_STD_DEVIATION
 from vector import Vector
 
 
@@ -34,18 +34,25 @@ def get_beacon(anchor, node):
     else:
         return 360 - phi
 
+# def get_beacon(anchor, node):
+#     # угол между вектором направленным из локатора к узлу
+#     cos = (node.x - anchor.x) / math.sqrt((node.x - anchor.x) ** 2 + (node.y - anchor.y) ** 2)
+#     phi = math.degrees(math.acos(cos))
+#     # обработка ситуации, когда сенсор ниже локатора
+#     return phi if anchor.y < node.y else 360 - phi
+            
+
+
 
 def get_angles_from_nodes(anchor_a, anchor_b, node):
-    # simulation
-    beacon_a = get_beacon(anchor_a, node) #+ random.randint(0, ANCHOR_STANDART_DEVIATION)        # noise
-    beacon_b = get_beacon(anchor_b, node) #+ random.randint(0, ANCHOR_STANDART_DEVIATION)        # noise
-    beacon_a_noise = beacon_a + random.randint(0, ANCHOR_STANDART_DEVIATION)
-    beacon_b_noise = beacon_b + random.randint(0, ANCHOR_STANDART_DEVIATION)
-
+    # симуляция
+    beacon_a = get_beacon(anchor_a, node)
+    beacon_b = get_beacon(anchor_b, node)
+    # стандартное отклоненние
+    beacon_a_noise = beacon_a + random.randint(0, AOA_STD_DEVIATION)
+    beacon_b_noise = beacon_b + random.randint(0, AOA_STD_DEVIATION)
     angle1 = get_beacon(anchor_a, node) - get_beacon(anchor_a, anchor_b)
     angle2 = get_beacon(anchor_b, node) - get_beacon(anchor_b, anchor_a)
-    
-
     return (abs(angle1), abs(angle2), beacon_a, beacon_b, beacon_a_noise, beacon_b_noise)
 
 def get_angles_from_beacons(anchor_a, anchor_b, beacon_a, beacon_b):

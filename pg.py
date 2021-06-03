@@ -45,13 +45,45 @@ def get_angles_b(a1, a2, b1, b2):
     angle2 = b2 - get_beacon(a2, a1)
     return angle1, angle2
 
+
+class Circle(Point):
+    def __init__(self, x, y, r):
+        super().__init__(x, y)
+        self.r = r
+
+    def __repr__(self):
+        return super().__repr__() + f"\tRad: {self.r}"
+
+def get_intersect_points(c1, c2):
+    # returns array of intersection points 
+    # if no intersect = 0 elements      if 1 interserct - 1 point       if 2 then 2 points
+    result = []
+    rp = Point(0, 0)
+    d = math.sqrt(pow(abs(c1.x - c2.x), 2) + pow(abs(c1.y - c2.y), 2))
+    if (d > c1.r + c2.r):
+        return result
+
+    dtr = (c1.r**2 - c2.r**2 + d**2) / (d*2)
+    h = math.sqrt(c1.r**2 - dtr**2)
+
+    rp.x = c1.x + dtr*(c2.x - c1.x) / d
+    rp.y = c1.y + dtr*(c2.y - c1.y) / d
+
+    fx = rp.x + h*(c2.y - c1.y) / d
+    fy = rp.y - h*(c2.x - c1.x) / d
+
+    result.append(Point(fx, fy))
+    if dtr == c1.r:
+        return result
+    
+    sx = rp.x - h*(c2.y - c1.y) / d
+    sy = rp.y + h*(c2.x - c1.x) / d
+    result.append(Point(sx, sy))
+    return result
+
+
 if __name__ == '__main__':
-    anchor1 = Point(51, 80)
-    anchor2 = Point(69, 35)
-
-    node1 = Point(4,56)
-
-    b1 = get_beacon(anchor1, node1)
-    b2 = get_beacon(anchor2, node1)
-
-    print(get_angles_b(anchor1, anchor2, b1, b2))
+    c1 = Circle(3, 4, 2)
+    c2 = Circle(5, 6, 2)
+    print(get_intersect_points(c1,c2))
+    # print(c1)

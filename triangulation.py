@@ -19,17 +19,14 @@ def found_node(anchor_a, anchor_b, beacon_a, beacon_b):
     phi_a, phi_b = get_angles_from_beacons(anchor_a, anchor_b, beacon_a, beacon_b)
     phi_a = math.radians(phi_a)
     phi_b = math.radians(beacon_b)
-
     r = abs((distance * math.sin(phi_a)) / math.sin(phi_c))
-
     delta_x = r * math.cos(phi_b)
     delta_y = r * math.sin(phi_b)
-
+    # обработка выхода за пределы поля
     x = min(anchor_b.x + delta_x, AXIS_X_LIMIT[1])
     y = min(anchor_b.y + delta_y, AXIS_Y_LIMIT[1])
-
     if x < 0 or y < 0:
-        return (0, 0)                       # if coords < 0 smth went wrong put to 0,0
+        return (0, 0)
     return(round(x, 2), round(y, 2))
     
 
