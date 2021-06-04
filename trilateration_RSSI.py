@@ -44,7 +44,6 @@ def get_intersect_points(c1, c2):
     d = math.sqrt(pow(abs(c1.x - c2.x), 2) + pow(abs(c1.y - c2.y), 2))
     if (d > c1.r + c2.r):
         return result
-
     try:
         dtr = (c1.r**2 - c2.r**2 + d**2) / (d*2)
         h = math.sqrt(c1.r**2 - dtr**2)
@@ -112,7 +111,6 @@ def node_trilateration(locators):
     triangle_points = []
     for pair in combinations(locators, 2):
         intersection_points += get_intersect_points(*pair)
-    # [print(el) for el in locators]
     for point in intersection_points:
         if all([point_belongs(l, point) for l in locators]):
             triangle_points.append(point)
@@ -158,9 +156,6 @@ def find_all_nodes_rssi(file_name):
             found_points_noise.append(noise_points[-1])
         
     return (real_nodes, found_points_real, found_points_noise)
-
-
-
 
 
 if __name__ == "__main__":
