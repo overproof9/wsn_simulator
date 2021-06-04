@@ -1,5 +1,6 @@
 ### Test code samples
 
+from globals import PL0, PL_EXP
 
 import math
 
@@ -46,6 +47,11 @@ def get_angles_b(a1, a2, b1, b2):
     return angle1, angle2
 
 
+def get_distance(p1, p2):
+    return math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2)
+
+
+
 class Circle(Point):
     def __init__(self, x, y, r):
         super().__init__(x, y)
@@ -82,8 +88,29 @@ def get_intersect_points(c1, c2):
     return result
 
 
+
+def get_ss(locator, node):
+    # simulation
+    d = get_distance(locator, node)
+    print(d)
+    return PL0 + (-10) * PL_EXP * math.log10(d)
+
+
+def get_radius_from_ss(ss):
+    #calculation
+    return pow(10, (ss - PL0) / (-10*PL_EXP))
+
+
+
+
 if __name__ == '__main__':
-    c1 = Circle(3, 4, 2)
-    c2 = Circle(5, 6, 2)
-    print(get_intersect_points(c1,c2))
+    # c1 = Circle(3, 4, 2)
+    # c2 = Circle(5, 6, 2)
+    # print(get_intersect_points(c1,c2))
     # print(c1)
+    locator = Point(5, 6)
+    node = Point(5, 3)
+
+    ss = get_ss(locator, node)
+    rad = get_radius_from_ss(ss)
+    print(f"SS: {ss}\tRAD: {rad:2.5f}")
