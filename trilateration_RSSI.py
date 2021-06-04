@@ -103,6 +103,8 @@ def simulate_and_write(locators_cnt, nodes_cnt, file_name):
         file_data = np.loadtxt(file, delimiter='\t', skiprows=1)
         print(f'\n\n[+]WRITE {len(file_data)} ROWS TO {file_name}\n')
 
+    return (locators, nodes)
+
 
 def node_trilateration(locators):
     # calculation
@@ -162,18 +164,23 @@ def find_all_nodes_rssi(file_name):
 
 
 if __name__ == "__main__":
-    simulate_and_write(ANCHORS_COUNT, NODES_COUNT, RSSI_SIMULATED_DATA)
+    locators, nodes = simulate_and_write(ANCHORS_COUNT, NODES_COUNT, RSSI_SIMULATED_DATA)
     result_nodes = find_all_nodes_rssi(RSSI_SIMULATED_DATA)
 
-    # real nodes
-    for node in result_nodes[0]:
-        
-        plt.plot(node.x, node.y, 'b o')       # real data
+    # locators red points
+    for node in locators:
+        plt.plot(node.x, node.y, 'r o')       
+
+    # real nodes blue points
+    for node in nodes:
+        plt.plot(node.x, node.y, 'b o')       
     
-    for node in result_nodes[1]:             # calculated no deviation
+    # calculated no deviation red X
+    for node in result_nodes[1]:             
         plt.plot(node.x, node.y, 'r x')
 
-    for node in result_nodes[2]:             # calculated with deviation
+    # calculated with deviation green X
+    for node in result_nodes[2]:             
         plt.plot(node.x, node.y, 'g x')
     plt.show()
 
