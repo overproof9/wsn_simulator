@@ -23,4 +23,8 @@ PL_STD_DEVIATION = 0.5          # Noise Standard Deviation in dB
 RSSI_SIMULATED_DATA = 'rssi_simulated_data.csv'
 SIMULATED_RSSI_DATA_COLUMNS = ['node_x', 'node_y', 'loc1_x', 'loc1_y', 'ss1', 'ss1_noise', 'dist1', 'loc2_x', 'loc2_y', 'ss2', 'ss2_noise', 'd2', 'loc3_x', 'loc3_y', 'ss3', 'ss3_noise', 'd3']
 
-
+# ToA
+LIGHT_SPEED = 299792458
+TOA_STD_DEVIATION = 5       # nanosec
+TOA_SIMULATED_DATA = 'toa_simulated_data.csv'
+SIMULATED_TOA_DATA_COLUMNS = ['node_x', 'node_y', 'loc1_x', 'loc1_y', 't1', 't1_noise', 'dist1', 'loc2_x', 'loc2_y', 't2', 't2_noise', 'd2', 'loc3_x', 'loc3_y', 't3', 't3_noise', 'd3']
